@@ -21,18 +21,22 @@ class EventTypes(Constant):
 
 class BittrexParameters(Constant):
     # Connection parameters
-    URL = 'https://socket.bittrex.com/signalr'
-    HUB = 'c2'
+    URL = 'https://socket-v3.bittrex.com/signalr'
+    HUB = 'c3'
     # Callbacks
     MARKET_DELTA = 'uE'
     SUMMARY_DELTA = 'uS'
     SUMMARY_DELTA_LITE = 'uL'
     BALANCE_DELTA = 'uB'
     ORDER_DELTA = 'uO'
+    ORDERBOOK_DELTA = "orderBook"
+    SUCCESS = "Success"
+    ERROR_CODE = "ErrorCode"
 
 
 class BittrexMethods(Constant):
     SUBSCRIBE_TO_EXCHANGE_DELTAS = 'SubscribeToExchangeDeltas'
+    SUBSCRIBE = 'Subscribe'
     SUBSCRIBE_TO_SUMMARY_DELTAS = 'SubscribeToSummaryDeltas'
     SUBSCRIBE_TO_SUMMARY_LITE_DELTAS = 'SubscribeToSummaryLiteDeltas'
     QUERY_SUMMARY_STATE = 'QuerySummaryState'
