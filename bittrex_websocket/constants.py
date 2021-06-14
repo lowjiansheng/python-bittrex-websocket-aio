@@ -30,6 +30,8 @@ class BittrexParameters(Constant):
     BALANCE_DELTA = 'uB'
     ORDER_DELTA = 'uO'
     ORDERBOOK_DELTA = "orderBook"
+    SUCCESS = "Success"
+    ERROR_CODE = "ErrorCode"
 
 
 class BittrexMethods(Constant):

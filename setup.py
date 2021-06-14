@@ -10,7 +10,7 @@ install_requires = \
 
 setup(
     name='bittrex-websocket-aio-pundix',
-    version='0.0.2',
+    version='0.0.5',
     author='Jian Sheng Low',
     author_email='jiansheng@pundix.com',
     license='MIT',

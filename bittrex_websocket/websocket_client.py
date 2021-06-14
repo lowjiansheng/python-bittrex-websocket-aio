@@ -66,7 +66,7 @@ class BittrexSocket(WebSocket):
         hub.client.on(BittrexParameters.MARKET_DELTA, self._on_public)
         hub.client.on(BittrexParameters.SUMMARY_DELTA, self._on_public)
         hub.client.on(BittrexParameters.SUMMARY_DELTA_LITE, self._on_public)
-        hub.client.on(BittrexParameters.BALANCE_DELTA, self._on_public)
+        hub.client.on(BittrexParameters.ORDERBOOK_DELTA, self._on_public)
         hub.client.on(BittrexParameters.BALANCE_DELTA, self._on_private)
         hub.client.on(BittrexParameters.ORDER_DELTA, self._on_private)
         self.connection = BittrexConnection(connection, hub)
@@ -104,7 +104,7 @@ class BittrexSocket(WebSocket):
             for ticker in payload[0]:
                 self.invokes.append({'invoke': invoke, 'ticker': ticker})
                 self.connection.corehub.server.invoke(
-                    BittrexMethods.SUBSCRIBE, ticker)
+                    BittrexMethods.SUBSCRIBE, [ticker])
                 logger.info(
                     'Successfully subscribed to [{}] for [{}].'.format(invoke, ticker))
         elif invoke == BittrexMethods.GET_AUTH_CONTENT:
@@ -210,6 +210,9 @@ class BittrexSocket(WebSocket):
                 event = SubscribeEvent(
                     BittrexMethods.AUTHENTICATE, self.credentials['api_key'], signature)
                 self.control_queue.put(event)
+            elif not kwargs['R'][0][BittrexParameters.SUCCESS]:
+                logging.error("Received error message %s",
+                              kwargs['R'][0][BittrexParameters.ERROR_CODE])
             elif kwargs['I'] == '0':
                 logging.info(
                     "Success connection to websocket from response...")
